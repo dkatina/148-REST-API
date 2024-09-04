@@ -17,8 +17,10 @@ def save(): #name the controller the same as the service it recruites
     return customer_schema.jsonify(customer), 201 #send them the customer object with a 201 successful creation status
 
 
-@cache.cached(timeout=120)
+# @cache.cached(timeout=120)
 def find_all():
-    all_customers = customerService.find_all()
+    page = request.args.get("page")
+    per_page = request.args.get("per_page") #paginate relys on integers and query parameters by default are strings (must convert)
+    all_customers = customerService.find_all(page, per_page)
 
     return customers_schema.jsonify(all_customers), 200

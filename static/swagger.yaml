@@ -3,9 +3,9 @@ info:
   title: "Ecommerce API"
   description: "Api that includes resources to manage an ecommerce website"
   version: "1.0.0"
-host: "127.0.0.1:5000" #working on local host
+host: "https://one48-rest-api.onrender.com" #working on local host
 schemes:
-  - "http"
+  - "https"
 consumes:
   - "application/json"
 produces:

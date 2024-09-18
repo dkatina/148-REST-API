@@ -105,16 +105,7 @@ Right now swagger is configured to run on localhost.
 - change host to new domain
 - change scheme to https
 
-#### libpq-dev
 
-pyscopg2 can get confused in some deployment environments and libpq helps iron out some of the kinks so we want to make sure it is involved in our deployment build so add the following step to your `yaml` jobs under `Set up Python`
-
-```
-- name: Install libpq-dev
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libpq-dev
-```
 
 
 ### Set Up CD

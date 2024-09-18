@@ -50,10 +50,9 @@ def rate_limit_config(app):
     limiter.limit("10 per second")(swagger_blueprint)
 
 
-if __name__ == '__main__':
-    app = create_app('DevelopmentConfig')
 
-    with app.app_context():
-        db.create_all()
+app = create_app('ProductionConfig')
 
-    app.run()
+with app.app_context():
+    db.create_all()
+

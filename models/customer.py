@@ -14,3 +14,6 @@ class Customer(Base):
     admin: Mapped[int] = mapped_column(db.Integer, nullable=False)
     #One-to-Many relationship: One customer can place many orders
     orders: Mapped[List['Order']] = db.relationship(back_populates='customer')
+
+
+

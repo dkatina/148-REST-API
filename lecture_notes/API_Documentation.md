@@ -41,8 +41,8 @@ consumes:
   - "application/json"
 produces:
   - "application/json"
-paths: {}
-definitions: {}
+paths: 
+definitions: 
 ```
 
 ##### Now we can set up Swagger in our app.py

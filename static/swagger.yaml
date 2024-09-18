@@ -1,0 +1,125 @@
+swagger: '2.0'
+info:
+  title: "Ecommerce API"
+  description: "Api that includes resources to manage an ecommerce website"
+  version: "1.0.0"
+host: "127.0.0.1:5000" #working on local host
+schemes:
+  - "http"
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+
+securityDefinitions:
+  bearerAuth:
+    type: apiKey
+    name: Authorization
+    in: header
+
+#Routes
+paths: 
+  #Login Path
+  /customers/login: #the specific url endpoint
+    post: #what king of request you are sending
+      tags:
+        - Customer #Creates a category for this route that can be reused on like routes
+      summary: "Login endpoint (generates a token)"
+      description: "Endpoint for user authentication, and token generation."
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "credentials for login (email and password)"
+          required: true
+          schema:
+            $ref: "#/definitions/LoginPayload"
+      responses:
+        200:
+          description: "Login Successful"
+          schema:
+            $ref: "#/definitions/LoginResponse"
+          examples:
+            application/json:
+              token: "kjdbvk;nadf;lna;osdnafgboi...."
+              message: "successfully logged in"
+              status: "success"
+  
+  #GetAllCustomers Path
+  /customers:
+    get:
+      tags:
+        - Customer
+      summary: "Retrieve a list of customer objects"
+      description: "Endpoint to retrieve all customers, requires token authentication"
+      security:
+        - bearerAuth:
+      responses:
+        200:
+          description: "Successfully retrieved all customers"
+          schema:
+            $ref: "#/definitions/GetCustomersResponse"
+          examples:
+            application/json:
+              name: "John Smith"
+              email: "jsmith@email.com"
+              phone: "1234567890"
+              username: "j-smitherino"
+              admin: 0
+
+#Payloads and Responses
+definitions: 
+#Login Definitions
+  LoginPayload:
+    type: "object" #sending a JSON object
+    properties:
+      email:
+        type: "string"
+        description: "email"
+      password:
+        type: "string"
+        description: "password"
+    required:
+      - "email"
+      - "password"
+
+  LoginResponse:
+    type: "object"
+    properties:
+      token:
+        type: "string"
+        description: "Authentication token on successful login"
+      message:
+        type: "string"
+        description: "Message indicating success or failure"
+      status:
+        type: "status"
+        description: "Status of operation"
+    required:
+      - "message"
+      - "status"
+
+  #Get all customers Definitions
+
+  GetCustomersResponse:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+        description: "Customer name"
+      phone:
+        type: "string"
+        description: "Customer phone"
+      email:
+        type: "string"
+        description: "Customer email"
+      password:
+        type: "string"
+        description: "Customer password"
+      username:
+        type: "string"
+        description: "Customer username"
+      admin:
+        type: "integer"
+        description: "Admin permission"
+
+
